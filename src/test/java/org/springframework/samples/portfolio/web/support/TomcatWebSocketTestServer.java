@@ -21,7 +21,7 @@ import org.apache.catalina.Wrapper;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.coyote.http11.Http11NioProtocol;
-import org.apache.tomcat.util.descriptor.web.ApplicationListener;
+//import org.apache.tomcat.util.descriptor.web.ApplicationListener;
 import org.apache.tomcat.websocket.server.WsContextListener;
 import org.springframework.web.SpringServletContainerInitializer;
 import org.springframework.web.WebApplicationInitializer;
@@ -44,8 +44,8 @@ import java.util.HashSet;
  */
 public class TomcatWebSocketTestServer implements WebSocketTestServer {
 
-	private static final ApplicationListener WS_APPLICATION_LISTENER =
-			new ApplicationListener(WsContextListener.class.getName(), false);
+//	private static final ApplicationListener WS_APPLICATION_LISTENER =
+//			new ApplicationListener(WsContextListener.class.getName(), false);
 
 	private final Tomcat tomcatServer;
 
@@ -91,7 +91,7 @@ public class TomcatWebSocketTestServer implements WebSocketTestServer {
 	@Override
 	public void deployConfig(WebApplicationContext cxt) {
 		this.context = this.tomcatServer.addContext("", System.getProperty("java.io.tmpdir"));
-		this.context.addApplicationListener(WS_APPLICATION_LISTENER);
+	//	this.context.addApplicationListener(WS_APPLICATION_LISTENER);
 		Tomcat.addServlet(context, "dispatcherServlet", new DispatcherServlet(cxt));
 		this.context.addServletMapping("/", "dispatcherServlet");
 	}
@@ -107,7 +107,7 @@ public class TomcatWebSocketTestServer implements WebSocketTestServer {
 		this.context.addChild(defaultServlet);
 
 		// Ensure WebSocket support
-		this.context.addApplicationListener(WS_APPLICATION_LISTENER);
+	//	this.context.addApplicationListener(WS_APPLICATION_LISTENER);
 
 		this.context.addServletContainerInitializer(
 				new SpringServletContainerInitializer(), new HashSet<Class<?>>(Arrays.asList(initializers)));
